@@ -1,0 +1,8 @@
+webhooks:
+  - path: "/webhook1"
+    run:
+      - "script1.sh"
+      - "script2.sh"
+  - path: "/webhook2/something"
+    run:
+      - "script1.sh"
