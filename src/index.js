@@ -22,16 +22,23 @@ try {
 }
 
 app.post("*name", (req, res, next) => {
-  if (!SECRET_KEY) 
-    return next();
-  
-  const authToken = req.headers["x-auth-token"];
-  
-  if (authToken !== SECRET_KEY) {
-    return res.status(403).send("Forbidden: Invalid or missing auth token");
+  if (!SECRET_KEY) return next();
+
+  const authHeader = req.headers["authorization"];
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(403).send("Forbidden: Missing or invalid Authorization header");
   }
+
+  const token = authHeader.split(" ")[1];
+
+  if (token !== SECRET_KEY) {
+    return res.status(403).send("Forbidden: Invalid token");
+  }
+
   next();
-})
+});
+
 
 let webhookRoutes = [];
 
