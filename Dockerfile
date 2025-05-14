@@ -2,6 +2,8 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+RUN apk add --no-cache curl
+
 COPY package.json ./
 COPY src ./src
 COPY config.yml ./
