@@ -5,7 +5,8 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 80;
+const BIND_ADDRESS = process.env.BIND_ADDRESS || '0.0.0.0';
 
 const SECRET_FILE = path.join(__dirname, "../secret.key");
 let SECRET_KEY = "";
@@ -81,6 +82,6 @@ function initApp() {
 
 initApp();
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server listening on 0.0.0.0:${PORT}`);
+app.listen(PORT, BIND_ADDRESS, () => {
+  console.log(`Listening on ${BIND_ADDRESS}:${PORT}`);
 });
